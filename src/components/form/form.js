@@ -1,5 +1,5 @@
 import React from 'react';
-
+import superagent from 'superagent';
 import './form.scss';
 
 class Form extends React.Component {
@@ -13,24 +13,27 @@ class Form extends React.Component {
     };
   }
 
-  handleSubmit = e => {
+  handleSubmit =  e => {
     e.preventDefault();
+    
+    let url = '';
+    let method = '';
+
+    let request = {
+	url: this.state.url,
+	method: this.state.method,
+        };
 
     if ( this.state.url && this.state.method ) {
-
-      // Make an object that would be suitable for superagent
-      let request = {
-        url: this.state.url,
-        method: this.state.method,
-      };
-
-      // Clear old settings
-      let url = '';
-      let method = '';
+	    superagent.get(request.url)
+		    .then(data=>{
+		let people = data.body;
+		let headers = data.headers;		
+		this.props.handler(people,headers);
+	});
 
       this.setState({request, url, method});
-      e.target.reset();
-
+       e.target.reset();
     }
 
     else {
@@ -55,7 +58,7 @@ class Form extends React.Component {
           <label >
             <span>URL: </span>
             <input name='url' type='text' onChange={this.handleChangeURL} />
-            <button type="submit">GO!</button>
+            <button type="submit">{this.props.title}</button>
           </label>
           <label className="methods">
             <span className={this.state.method === 'get' ? 'active' : ''} id="get" onClick={this.handleChangeMethod}>GET</span>
