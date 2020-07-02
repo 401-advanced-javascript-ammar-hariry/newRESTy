@@ -9,6 +9,7 @@ class History extends React.Component {
     }
     handlerClick(e) {
         let array = e.target.value.split('  ');
+        
         if (array[5]) {
             let method = array[1];
             let url = array[3];
@@ -23,16 +24,16 @@ class History extends React.Component {
     }
 
     getDataLocal() {
-        let queryLocalStorage = JSON.parse(localStorage.getItem('query'));
-        let items ;
-        if (queryLocalStorage) {
-            return items = queryLocalStorage.map((item, i) => {
-                if (item.body) {
-                    let body = JSON.stringify(item.body);
-                    return <input type='text' readOnly='readonly' onClick={this.handlerClick} key={i} value={`method:  ${item.method} |  url:  ${item.url} | body:  ${body}`} />
+        let historyStorage = JSON.parse(localStorage.getItem('history'));
+        let searches ;
+        if (historyStorage) {
+            return searches = historyStorage.map((search, i) => {
+                if (search.body) {
+		let body = JSON.stringify(search.body);
+                    return <input type='text' readOnly='readonly' onClick={this.handlerClick} key={i} value={`method:  ${search.method}  url:  ${search.url}  body:  ${body}`} />
                 }
                 else {
-                    return <input type='text' readOnly='readonly' onClick={this.handlerClick} key={i} value={`method:  ${item.method} | url:  ${item.url}`} />
+                    return <input type='text' readOnly='readonly' onClick={this.handlerClick} key={i} value={`method:  ${search.method}  url:  ${search.url}`} />
                 }
             });
         }

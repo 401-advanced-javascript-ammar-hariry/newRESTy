@@ -19,37 +19,39 @@ class Form extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
   
-    if ( this.state.url && this.state.method ) { 
+    if ( this.state.url && this.state.method ||this.props.url ) { 
 	let url = '';
 	let method = '';
 	let body ='';
 	let request ={
 		url: this.state.url,
 		method : this.state.method,
-		body :this.state.body.data,
+		body :this.state.body,
           }
-	body = this.state.body.data 
-  	if(this.state.method  === 'post' && this.state.body.data ){
-
+	if(this.state.method  === 'post' && this.state.body.data ){
+		body = this.state.body.data 
+		
 	    await this.postHandler();
-		this.saveLocalStorage();
+	    await	this.saveLocalStorage();
+	    this.props.toggleLoading();
 	}else if(this.state.method  === 'put' && this.state.body.data){
-
+		this.props.toggleLoading();
 	     await this.postHandler();
-		 this.saveLocalStorage();
+	     await this.saveLocalStorage()
+	      this.props.toggleLoading();
 	} else if(this.state.method  === 'delete'){
-
+		this.props.toggleLoading();
 		const requestOptionsDelete = {
 		method: 'DELETE',
   		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({body})
 	 };
 		await fetch( this.state.url, requestOptionsDelete)
-
-		this.saveLocalStorage();
+		await this.saveLocalStorage();
+		 this.props.toggleLoading();
 	} else {
 		this.props.toggleLoading();
-		url= this.state.url;
+		url= this.state.url || this.props.url;
 		method= this.state.method;
 		superagent.get(url)
 		.then(data=>{
@@ -58,22 +60,20 @@ class Form extends React.Component {
 		this.props.handler(people,headers);
 	});	
 	await this.saveLocalStorage();
+	await this.props.toggleLoading();
 	}
       this.setState({request, url, method,body});
     }else {
 
       alert('missing information');
 	   }
-	   this.props.toggleLoading()
   }
     
   saveLocalStorage(){
-	let queryLocalStorage = JSON.parse(localStorage.getItem('query'));
-	if(queryLocalStorage){
-	  this.hestoryArray = queryLocalStorage;
+	let localHistory = JSON.parse(localStorage.getItem('history'));	
+	if(localHistory){				
+		this.hestoryArray = localHistory;
 	}
-	// console.log(']]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]>',this.state.method );
-	
 	let objLocalStorage = { method: this.state.method , url: this.state.url,body: this.state.body}
 	let counter = 0;
 	this.hestoryArray.forEach(val =>{
@@ -83,10 +83,11 @@ class Form extends React.Component {
 	});
 	if(counter === 0){
 	  this.hestoryArray.push(objLocalStorage);
-	  localStorage.setItem('query',JSON.stringify(this.hestoryArray));
+	  localStorage.setItem('history',JSON.stringify(this.hestoryArray));
         }
   }
   postHandler(){
+	this.props.toggleLoading();
 	const requestOptions = {
 		method: this.state.method.toUpperCase(),
 		cache: 'no-cache',
@@ -96,10 +97,11 @@ class Form extends React.Component {
 			},
 		redirect: 'follow',
 		referrerPolicy: 'no-referrer', 
-		body: JSON.stringify( this.state.body.data)
+		body: JSON.stringify(this.state.body.data)
 		      };
 		 fetch( this.state.url, requestOptions)
 		.then(data => this.setState(this.state.body.data))
+		this.props.toggleLoading();
   }
   handleChangeURL = e => {
 	  
@@ -118,6 +120,7 @@ class Form extends React.Component {
 	const data =JSON.parse(e.target.value);
 	this.setState({ body : {data} });	  
   }
+  
   render() {
     return (
       <>
@@ -133,8 +136,8 @@ class Form extends React.Component {
             <span className={this.state.method === 'put' ? 'active' : ''} id="put" onClick={this.handleChangeMethod}>PUT</span>
             <span className={this.state.method === 'delete' ? 'active' : ''} id="delete" onClick={this.handleChangeMethod}>DELETE</span>
           </label>
-	<textarea name='body' rows="7" cols="50" onChange={this.bodyHandel}> 
-	{this.props.body}
+	<textarea name='body' rows="7" cols="50" value={this.props.body} onChange={this.bodyHandel}> 
+	
          </textarea>
         </form>
         <section className="results">
