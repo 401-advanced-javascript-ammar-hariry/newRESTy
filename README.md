@@ -20,6 +20,9 @@
 - ``react-test-renderer``
 - ``enzyme``
 - ``enzyme-adapter-react-16``
+- ``superagent``
+- ``react-router-dom``
+
 #### How to initialize/run your application (where applicable)
 - ``npm run start``
 
@@ -27,5 +30,5 @@
 - ``npm run test``
 
 ### UML:
-![pull request](https://i.ibb.co/BNHq0S6/react-uml.png)
+![Uml ](https://i.ibb.co/BNHq0S6/react-uml.png)
 

@@ -1,38 +1,42 @@
 $backgroundColor: #efefef;
 $radius: 40%;
-
 form {
-  display: inline-block;
-  margin: auto;
-  width: 200px;
-
-  label {
-    display: flex;
-    margin: 1rem 0;
-
-    &.methods {
-      span {
-        cursor: pointer;
-        margin-right: 1rem;
-        padding: .25rem .5rem;
-        background: #ccc;
-
-        &:hover, &.active {
-          background: #fff;
+    display: inline-block;
+    margin: auto;
+    width: 200px;
+    label {
+        width: 133%;
+        display: flex;
+        margin: 1rem 0;
+        &.methods {
+            span {
+                cursor: pointer;
+                margin-right: 1rem;
+                padding: .25rem .5rem;
+                background: #ccc;
+                &:hover,
+                &.active {
+                    background: #fff;
+                }
+            }
         }
-      }
+        button {
+            width: 41%;
+            height: 100%;
+        }
     }
-  }
+    textarea {
+        width: 135%;
+    }
 }
 
 .results {
-  background: #efefef;
-  border: 1px solid #ccc;
-  flex: 1;
-  margin: 1rem;
-  padding: 1rem;
-
-  span {
+    background: #efefef;
+    border: 1px solid #ccc;
+    flex: 1;
     margin: 1rem;
-  }
+    padding: 1rem;
+    span {
+        margin: 1rem;
+    }
 }
