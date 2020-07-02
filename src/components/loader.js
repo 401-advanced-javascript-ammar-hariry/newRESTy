@@ -1,6 +1,6 @@
 import React from 'react';
 import { IfRenderer, Then, Else } from './if/if';
-import '../app.scss'
+
 
 const Loader = (props) => {
     return (
