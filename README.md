@@ -4,8 +4,8 @@
 ### Author: Ammar Al-Hariry
 
 ## Links and Resources
-- [pull request](https://github.com/401-advanced-javascript-ammar-hariry/newRESTy/pull/3)
-- [github Action](https://github.com/401-advanced-javascript-ammar-hariry/newRESTy/runs/823967485)
+- [pull request](https://github.com/401-advanced-javascript-ammar-hariry/newRESTy/pull/4)
+- [github Action](https://github.com/401-advanced-javascript-ammar-hariry/newRESTy/runs/828929420)
 
 ### deployment
 - [github deploy](https://401-advanced-javascript-ammar-hariry.github.io/newRESTy/)
