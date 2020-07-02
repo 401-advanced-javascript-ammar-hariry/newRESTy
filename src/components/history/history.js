@@ -24,7 +24,7 @@ class History extends React.Component {
 
     getDataLocal() {
         let queryLocalStorage = JSON.parse(localStorage.getItem('query'));
-        let items = [];
+        let items ;
         if (queryLocalStorage) {
             return items = queryLocalStorage.map((item, i) => {
                 if (item.body) {
