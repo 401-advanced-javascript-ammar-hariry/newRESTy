@@ -19,7 +19,6 @@ class Form extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
   
-    this.props.toggleLoading();
     if ( this.state.url && this.state.method ) { 
 	let url = '';
 	let method = '';
@@ -28,7 +27,7 @@ class Form extends React.Component {
 		url: this.state.url,
 		method : this.state.method,
 		body :this.state.body.data,
-         }
+          }
 	body = this.state.body.data 
   	if(this.state.method  === 'post' && this.state.body.data ){
 
@@ -49,7 +48,7 @@ class Form extends React.Component {
 
 		this.saveLocalStorage();
 	} else {
-
+		this.props.toggleLoading();
 		url= this.state.url;
 		method= this.state.method;
 		superagent.get(url)
@@ -61,11 +60,11 @@ class Form extends React.Component {
 	await this.saveLocalStorage();
 	}
       this.setState({request, url, method,body});
-      this.props.toggleLoading()
     }else {
 
       alert('missing information');
-   	}
+	   }
+	   this.props.toggleLoading()
   }
     
   saveLocalStorage(){
@@ -125,7 +124,7 @@ class Form extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <label >
             <span>URL: </span>
-            <input name='url' type='text'  onChange={this.handleChangeURL}  />
+            <input name='url' type='text' value={this.props.url} onChange={this.handleChangeURL}  />
             <button type="submit">{this.props.title}</button>
           </label>
           <label className="methods">
@@ -135,12 +134,12 @@ class Form extends React.Component {
             <span className={this.state.method === 'delete' ? 'active' : ''} id="delete" onClick={this.handleChangeMethod}>DELETE</span>
           </label>
 	<textarea name='body' rows="7" cols="50" onChange={this.bodyHandel}> 
-
+	{this.props.body}
          </textarea>
         </form>
         <section className="results">
-          <span className="method">{this.state.request.method}</span>
-          <span className="url">{this.state.request.url}</span>
+          <span className="method">{this.state.request.method}  {this.props.method}</span>
+          <span className="url">{this.state.request.url} {this.props.url}</span>
         </section>
       </>
     );
