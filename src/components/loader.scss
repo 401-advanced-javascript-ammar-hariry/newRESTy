@@ -1,18 +1,24 @@
-h2 {
-    color: red;
+.loading-true {
+	border: 16px solid #f3f3f3;
+	border-radius: 76%;
+	border-top: 16px solid red;
+	width: 0%;
+	height: 1%;
+	animation: spin 1s linear infinite;
+	padding: 6%;
+      
 }
 
-.loading-true {
-    background-image: url(https://www.pinclipart.com/picdir/big/196-1968853_orange-financials-loading-images-transparent-gif-clipart.png);
-    //         text-align: center;
-    //         border: 16px solid #f3f3f3;
-    //         /* Light grey */
-    //         border-top: 16px solid #3498db;
-    //         /* Blue */
-    //         border-radius: 50%;
-    width: 50%;
-    height: 50%;
-    animation: spin 2s linear infinite;
+
+/* Safari */
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @keyframes spin {

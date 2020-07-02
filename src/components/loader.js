@@ -1,19 +1,18 @@
 import React from 'react';
 import { IfRenderer, Then, Else } from './if/if';
-
+import './loader.scss'
 
 const Loader = (props) => {
+	console.log(props.loading);
     return (
-	<>
-	<div><h2>asdasd</h2></div>
-	
-	<IfRenderer condition={!props.loading} >
+	<>	
+	<IfRenderer condition={props.loading ==='true'} >
 	  <Then>
+	  <div className={`loading-true`}>
+	</div>
 	</Then>
 	<Else>
-	<div className={`loading-${props.loading}`}>
 	
-	</div>
 	</Else>
 	</IfRenderer>
       </>

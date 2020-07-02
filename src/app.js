@@ -15,20 +15,22 @@ class App extends React.Component {
 constructor(props) {
 	super(props);
 	this.state = {
-	loading: '',
+	loading: 'false',
 	header : [],
 	results: []
 	};
  }
  toggleLoading = () => {
-	 if(this.state.loading===''){
-		 let loading = false;
-		 this.setState({loading : !loading})
-		 console.log("this.state.loading: ", !loading)
+	 if(this.state.loading==='false'){
+		 let loading = 'true';
+		 this.setState({loading : loading})
+		 console.log("this.state.loading: ", loading)
 	 }else{
-		let loading = true;
-		this.setState({loading : !loading})
-		 console.log("this.state.loading: ", !loading) 
+		 setTimeout(()=>{
+			let loading = 'false';
+			this.setState({loading : loading})
+			 console.log("this.state.loading: ", loading) 	 
+		 },500)
 	 }
 }
   handleForm = (results,header) => {
@@ -51,7 +53,6 @@ constructor(props) {
         <ReactJson src={this.state.header} />
          <h2>Results:</h2>
         <ReactJson src={this.state.results} />
-
         </Route>
         <Route path="/history">
           <History handel={this.handelHistory}/>
