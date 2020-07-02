@@ -1,11 +1,12 @@
 import React from 'react';
 import { IfRenderer, Then, Else } from './if/if';
-
+import '../app.scss'
 
 const Loader = (props) => {
     return (
 	<>
-	<h2>asdasd</h2>
+	<div><h2>asdasd</h2></div>
+	
 	<IfRenderer condition={!props.loading} >
 	  <Then>
 	</Then>
